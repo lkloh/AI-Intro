@@ -1,0 +1,328 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+%\usepackage{fullpage}
+\usepackage[top=1in, bottom=1in, left=0.8in, right=1in]{geometry}
+\usepackage{multicol}
+%\usepackage{wrapfig}
+\usepackage{enumerate}
+\usepackage{amscd}
+\usepackage{amssymb}
+\setcounter{secnumdepth}{0}
+\setlength{\columnsep}{0.1pc}
+\setlength\parindent{0pt}
+\setlength{\parskip}{\baselineskip}%
+
+\title{Lab 6}
+\author{Lay Kuan Loh}
+\date{\today}
+\begin{document}
+
+  \maketitle
+
+  \vspace{-0.3in}
+  \rule{\linewidth}{0.4pt}
+
+
+% ------------------------------------------------------------------------------------- %
+%                                                                                       %
+%                                           QUESTION 1                                  %
+%                                                                                       %
+% ------------------------------------------------------------------------------------- %
+
+
+\subsection{Naive Bayes}
+
+Column: Type A or B
+
+Row: Characteristic traits of slugs
+
+\# Type A = 15
+
+\# Type B = 10
+
+$X_1$:
+
+\begin{tabular}{c || c |c || c c}
+               & 0 (No fluffy tail) & 1 (Fluffy tail) & MLE Estimates & \\
+  \hline
+  \hline
+  0 (Type B)   & 7 & 8 & 0.28 & 0.32 \\
+  \hline
+  1 (Type A)   & 3 & 7 & 0.12 & 0.28 \\
+\end{tabular}
+
+$X_2$:
+
+\begin{tabular}{c || c |c || c c}
+               & 0 (Black ears) & 1 (Green ears) & MLE Estimators & \\
+  \hline
+  \hline
+  0 (Type B)   & 13 & 2 & 0.69 & 0.08 \\
+  \hline
+  1 (Type A)   & 8  & 2 & 0.32 & 0.08\\
+\end{tabular}
+
+$X_3:$
+
+\begin{tabular}{c || c |c || c c}
+               & 0 (No spots) & 1 (Spots) & MLE Estimators & \\
+  \hline
+  \hline
+  0 (Type B)   & 10 & 5 & 0.40 & 0.20\\
+  \hline
+  1 (Type A)   & 7 & 3  & 0.28 & 0.12\\
+\end{tabular}
+
+$X_4:$
+
+\begin{tabular}{c || c | c || c c}
+               & 0 (No extra tongue) & 1 (Extra tongue) & MLE Estimators & \\
+  \hline
+  \hline
+  0 (Type B)   & 10 & 5 & 0.40 & 0.20 \\
+  \hline
+  1 (Type A)   & 7 & 3  & 0.28 & 0.12 \\
+\end{tabular}
+
+Testing on the last row:
+
+$$\hat{Y} 
+= \arg \max_y \hat{\mathbb{P}}(X|Y) \hat{\mathbb{P}}(Y)
+= \arg \max_y \hat{\mathbb{P}}(X_1|Y) 
+\hat{\mathbb{P}}(X_2|Y) \hat{\mathbb{P}}(X_3|Y) \hat{\mathbb{P}}(X_4|Y)$$
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=0|Y=0) \hat{\mathbb{P}}(X_2=0|Y=0)
+	  \hat{\mathbb{P}}(X_3=0|Y=0) \hat{\mathbb{P}}(X_4=1|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{0.28}{0.60} \frac{0.69}{0.60} \frac{0.40}{0.60} \frac{0.20}{0.60} 0.60 \\
+	&=& 0.0715 \\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=0|Y=1) \hat{\mathbb{P}}(X_2=0|Y=1)
+	  \hat{\mathbb{P}}(X_3=0|Y=1) \hat{\mathbb{P}}(X_4=1|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{0.12}{0.40} \frac{0.32}{0.40} \frac{0.28}{0.40} \frac{0.12}{0.40} 0.40 \\
+	&=& 0.02016 \\
+	&\Rightarrow& Y=0 \\q
+	&& SAME \\ 
+\end{eqnarray*}
+
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=0) \hat{\mathbb{P}}(X_2=0|Y=0)
+	  \hat{\mathbb{P}}(X_3=0|Y=0) \hat{\mathbb{P}}(X_4=0|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{0.32}{0.60} \frac{0.69}{0.60} \frac{0.40}{0.60} \frac{0.40}{0.60} 0.60 \\
+	&=&  0.164\\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=1) \hat{\mathbb{P}}(X_2=0|Y=1)
+	  \hat{\mathbb{P}}(X_3=0|Y=1) \hat{\mathbb{P}}(X_4=0|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{0.28}{0.40} \frac{0.32}{0.40} \frac{0.28}{0.40} \frac{0.28}{0.40} 0.40 \\
+	&=&  0.10976\\
+	&\Rightarrow& Y=0\\ 
+	&& DIFFERENT \\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=0|Y=0) \hat{\mathbb{P}}(X_2=0|Y=0)
+	  \hat{\mathbb{P}}(X_3=1|Y=0) \hat{\mathbb{P}}(X_4=1|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{0.28}{0.60} \frac{0.69}{0.60} \frac{0.20}{0.60} \frac{0.20}{0.60} 0.60 \\
+	&=&  0.0358 \\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=0|Y=1) \hat{\mathbb{P}}(X_2=0|Y=1)
+	  \hat{\mathbb{P}}(X_3=1|Y=1) \hat{\mathbb{P}}(X_4=1|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{0.12}{0.40} \frac{0.32}{0.40} \frac{0.28}{0.12} \frac{0.12}{0.40} 0.40 \\
+	&=& 0.02016 \\
+	&\Rightarrow& Y=0\\ 
+	&& SAME \\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=0) \hat{\mathbb{P}}(X_2=1|Y=0)
+	  \hat{\mathbb{P}}(X_3=1|Y=0) \hat{\mathbb{P}}(X_4=1|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{0.32}{0.60} \frac{0.08}{0.60} \frac{0.20}{0.60} \frac{0.20}{0.60} 0.60 \\
+	&=&  0.004741\\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=1) \hat{\mathbb{P}}(X_2=1|Y=1)
+	  \hat{\mathbb{P}}(X_3=1|Y=1) \hat{\mathbb{P}}(X_4=1|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{0.28}{0.40} \frac{0.08}{0.40} \frac{0.12}{0.40} \frac{0.12}{0.40} 0.40 \\
+	&=&  0.00504\\
+	&\Rightarrow& Y=1\\ 
+	&& SAME \\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=0) \hat{\mathbb{P}}(X_2=0|Y=0)
+	  \hat{\mathbb{P}}(X_3=0|Y=0) \hat{\mathbb{P}}(X_4=1|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{0.32}{0.60} \frac{0.69}{0.60} \frac{0.40}{0.60} \frac{0.20}{0.60} 0.60 \\
+	&=&  0.082\\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=1) \hat{\mathbb{P}}(X_2=0|Y=1)
+	  \hat{\mathbb{P}}(X_3=0|Y=1) \hat{\mathbb{P}}(X_4=1|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{0.28}{0.40} \frac{0.32}{0.40} \frac{0.28}{0.40} \frac{0.12}{0.40} 0.40 \\
+	&=& 0.047 \\
+	&\Rightarrow& Y=0\\ 
+	&& SAME \\
+\end{eqnarray*}
+
+Success Rate: 80\%
+
+% ------------------------------------------------------------------------------------- %
+%                                                                                       %
+%                                           QUESTION 2                                  %
+%                                                                                       %
+% ------------------------------------------------------------------------------------- %
+
+
+\subsection{Laplace Smoothing}
+
+Column: Type A or B
+
+Row: Characteristic traits of slugs
+
+\# Type A = 17
+
+\# Type B = 12
+
+$X_1$:
+
+\begin{tabular}{c || c |c }
+               & 0 (No fluffy tail) & 1 (Fluffy tail) \\
+  \hline
+  \hline
+  0 (Type B)   & 8 & 9  \\
+  \hline
+  1 (Type A)   & 4 & 8 \\
+\end{tabular}
+
+$X_2$:
+
+\begin{tabular}{c || c |c }
+               & 0 (Black ears) & 1 (Green ears) \\
+  \hline
+  \hline
+  0 (Type B)   & 14 & 3 \\
+  \hline
+  1 (Type A)   & 9  & 3 \\
+\end{tabular}
+
+$X_3:$
+
+\begin{tabular}{c || c |c }
+               & 0 (No spots) & 1 (Spots) \\
+  \hline
+  \hline
+  0 (Type B)   & 11 & 6 \\
+  \hline
+  1 (Type A)   & 8 & 4  \\
+\end{tabular}
+
+$X_4:$
+
+\begin{tabular}{c || c | c}
+               & 0 (No extra tongue) & 1 (Extra tongue) \\
+  \hline
+  \hline
+  0 (Type B)   & 11 & 6 \\
+  \hline
+  1 (Type A)   & 8 & 4 \\
+\end{tabular}
+
+Testing on the last row:
+
+$$\hat{Y} 
+= \arg \max_y \hat{\mathbb{P}}(X|Y) \hat{\mathbb{P}}(Y)
+= \arg \max_y \hat{\mathbb{P}}(X_1|Y) 
+\hat{\mathbb{P}}(X_2|Y) \hat{\mathbb{P}}(X_3|Y) \hat{\mathbb{P}}(X_4|Y)$$
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=0|Y=0) \hat{\mathbb{P}}(X_2=0|Y=0)
+	  \hat{\mathbb{P}}(X_3=0|Y=0) \hat{\mathbb{P}}(X_4=1|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{8}{17} \frac{14}{17} \frac{11}{17} \frac{6}{17} \frac{17}{29}\\
+	&=& 0.0519\\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=0|Y=1) \hat{\mathbb{P}}(X_2=0|Y=1)
+	  \hat{\mathbb{P}}(X_3=0|Y=1) \hat{\mathbb{P}}(X_4=1|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{4}{12} \frac{9}{12} \frac{8}{12} \frac{4}{12} \frac{12}{29} \\
+	&=& 0.023 \\
+	&\Rightarrow& Y= 1\\q
+	&& DIFFERENT \\ 
+\end{eqnarray*}
+
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=0) \hat{\mathbb{P}}(X_2=0|Y=0)
+	  \hat{\mathbb{P}}(X_3=0|Y=0) \hat{\mathbb{P}}(X_4=0|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{9}{17} \frac{14}{17} \frac{11}{17} \frac{11}{17} \frac{17}{29} \\
+	&=& 0.107 \\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=1) \hat{\mathbb{P}}(X_2=0|Y=1)
+	  \hat{\mathbb{P}}(X_3=0|Y=1) \hat{\mathbb{P}}(X_4=0|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{8}{12} \frac{9}{12} \frac{8}{12} \frac{8}{12} \frac{12}{29} \\
+	&=& 0.092 \\
+	&\Rightarrow& Y=0\\ 
+	&& DIFFERENT \\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=0|Y=0) \hat{\mathbb{P}}(X_2=0|Y=0)
+	  \hat{\mathbb{P}}(X_3=1|Y=0) \hat{\mathbb{P}}(X_4=1|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{8}{17} \frac{14}{17} \frac{6}{17} \frac{6}{17} \frac{17}{29} \\
+	&=& 0.48  \\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=0|Y=1) \hat{\mathbb{P}}(X_2=0|Y=1)
+	  \hat{\mathbb{P}}(X_3=1|Y=1) \hat{\mathbb{P}}(X_4=1|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{4}{12} \frac{9}{12} \frac{4}{12} \frac{4}{12} \frac{12}{29} \\
+	&=& 0.011\\
+	&\Rightarrow& Y=0\\ 
+	&& SAME \\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=0) \hat{\mathbb{P}}(X_2=1|Y=0)
+	  \hat{\mathbb{P}}(X_3=1|Y=0) \hat{\mathbb{P}}(X_4=1|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{9}{17} \frac{3}{17} \frac{6}{17} \frac{6}{17} \frac{17}{29} \\
+	&=& 0.0068 \\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=1) \hat{\mathbb{P}}(X_2=1|Y=1)
+	  \hat{\mathbb{P}}(X_3=1|Y=1) \hat{\mathbb{P}}(X_4=1|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{8}{12} \frac{3}{12} \frac{4}{12} \frac{4}{12} \frac{12}{29} \\
+	&=& 0.0077 \\
+	&\Rightarrow& Y=1\\ 
+	&& SAME \\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  \mathbb{P}(X, Y=0)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=0) \hat{\mathbb{P}}(X_2=0|Y=0)
+	  \hat{\mathbb{P}}(X_3=0|Y=0) \hat{\mathbb{P}}(X_4=1|Y=0) \hat{\mathbb{P}}(Y=0)\\
+	&=& \frac{9}{17} \frac{14}{17} \frac{11}{17} \frac{6}{17} \frac{17}{29} \\
+	&=& 0.0583 \\ 
+  \mathbb{P}(X, Y=1)
+	&=& \hat{\mathbb{P}}(X_1=1|Y=1) \hat{\mathbb{P}}(X_2=0|Y=1)
+	  \hat{\mathbb{P}}(X_3=0|Y=1) \hat{\mathbb{P}}(X_4=1|Y=1) \hat{\mathbb{P}}(Y=1)\\
+	&=& \frac{8}{12} \frac{9}{12} \frac{8}{12} \frac{4}{12} \frac{12}{29} \\
+	&=& 0.046 \\
+	&\Rightarrow& Y=0\\ 
+	&& DIFFERENT \\
+\end{eqnarray*}
+
+Success Rate: 40\%
+
+Success rate decreased.
+
+Laplace smoothing is helpful when something always has the change to happen.
+Harmful if the case where the data really does not exist, but you pretended to see it.
+
+In this case, since we have data for all possible observations, not really useful. 
+
+
+\end{document}
+
+% ---------------------------------------- END ---------------------------------------- %

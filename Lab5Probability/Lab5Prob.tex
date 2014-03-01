@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+%\usepackage{fullpage}
+\usepackage[top=1in, bottom=1in, left=0.8in, right=1in]{geometry}
+\usepackage{multicol}
+%\usepackage{wrapfig}
+\usepackage{enumerate}
+\usepackage{amscd}
+\usepackage{amssymb}
+\setcounter{secnumdepth}{0}
+\setlength{\columnsep}{0.1pc}
+\setlength\parindent{0pt}
+
+\title{Lab 5 Probability}
+\author{Lay Kuan Loh}
+\date{\today}
+\begin{document}
+
+  \maketitle
+
+  \vspace{-0.3in}
+  \rule{\linewidth}{0.4pt}
+
+
+% ------------------------------------------------------------------------------------- %
+%                                                                                       %
+%                                           QUESTION 1                                  %
+%                                                                                       %
+% ------------------------------------------------------------------------------------- %
+
+\subsection{Yesterday's Puzzle}
+
+Parity
+
+$n$ different colors of hats
+\begin{itemize}
+  \item 
+\end{itemize}
+
+
+\subsection{Question 1}
+
+\begin{enumerate}[(a)]
+  \item Royal Flush: Dealt the 5 highest cards from a single suit.
+	 
+	 $|E| = 4$ as there are 4 suits, each with five highest cards
+
+	 $\displaystyle\mathbb{P} = \frac{4}{\binom{52}{5}}$
+  \item Four of a kind: Four cards of the same rank, one of another kind
+
+	 $|E| = 13 \cdot \binom{4}{4} \cdot 48$
+
+	 We have 13 possible ranks to choose for those four cards,
+	 and there are 48 remaining cards to choose the other one from.
+
+	 $\displaystyle\mathbb{P} = \frac{13 \cdot 48}{\binom{52}{5}}$
+  \item Two Pairs: two pairs of same rank, one different
+
+	 $|E| = 13 \binom{4}{2} \cdot 12 \binom{4}{2} \cdot 11 \binom{4}{1}$ 
+  \item Flush:
+
+	 All five cards of same suit, not in sequence
+
+	 $|S| = 4 \binom{13}{5}$
+  \item Straight flush:
+
+	 Five cards in sequence, all of the same suit.
+
+	 $|E| = 4 \cdot 10$
+
+	 10 possible consecutive sequence. 
+\end{enumerate}
+
+% ------------------------------------------------------- %
+
+\subsection{Question 2}
+
+$\displaystyle \frac{\binom{n}{k}}{\binom{n}{k}!}$
+
+
+% ------------------------------------------------------- %
+
+\subsection{Question 3}
+
+\begin{itemize}
+  \item First $r$ bits have exactly $k$ zeros,
+	 there other $M+N-r$ bits have exactly $M-k$ zeros.
+  \item $\displaystyle \frac{\binom{r}{k} \binom{M+N-r}{r-k}} {\binom{M}{k}} $
+\end{itemize}
+
+
+% ------------------------------------------------------- %
+
+\subsection{Question 4}
+
+\begin{itemize}
+  \item $J_I$ = \# jurors voting the defendant innocent.
+
+	  $J_G$ = \# jurors voting the defendant guilty
+  \item $A_I$ = Event the defendant is really innocent
+
+	  $A_G$ = Event the defendant is really guilty
+  \item $F_G$ = Event a juror votes guilty
+
+	 $\mathbb{P}(F_G|A_I) = 0.1$
+
+	 $\mathbb{P}(F_G|A_G) = 0.8$
+
+  \item $F_I$ = Event a juror votes innocent
+
+	 $\mathbb{P}(F_I|A_I) = 0.9$ 
+
+	 $\mathbb{P}(F_I|A_G) = 0.2$
+  \item $C$ = Event the jury makes the correct decision.
+	 \begin{eqnarray*}
+	    C &=& \mathbb{P}(J_G \geq 9|A_G)\mathbb{P}(A_G) 
+		    + \mathbb{P}(J_I \geq 9|A_I)\mathbb{P}(A_I) \\
+	      &=& (0.65)\sum_{i=9}^{12}\binom{12}{i}0.8^i 0.2^{12-i}
+		    + (0.35)\sum_{i=9}^{12}\binom{12}{i}0.9^i 0.1^{12-i} \\
+	      &=& 0.857
+	 \end{eqnarray*}
+  \item \begin{eqnarray*}
+	   \text{Percentage of defendants found guilty by the jury} \\
+		      = \mathbb{P}(J_G \geq 9) \\
+	  		=\mathbb{P}(J_G \geq 9|A_G)\mathbb{P}(A_G)
+			   +\mathbb{P}(J_G \geq 9|A_I)\mathbb{P}(A_I) \\
+		      = (0.65)\sum_{i=9}^{12}0.8^i 0.2^{12-i}
+			   +(0.35)\sum_{i=9}^{12}0.9^i 0.1^{12-i} \\
+	\end{eqnarray*}
+\end{itemize}
+
+
+
+% ------------------------------------------------------- %
+
+\subsection{Question 5}
+
+\begin{enumerate}[(a)]
+  \item William's parents must be Bb since otherwise his sister
+	 cannot be bb.
+	 Therefore William can be Bb, Bb, or BB.
+	 So he has probability $\frac{2}{3}$ to have a blue-eyed gene.
+  \item If William is $Bb$ and wife is bb, his first child has 
+	 blue eyes with probability $\frac{1}{2}$. 
+
+	 If William is $BB$ and wife is bb, no chance his first child has blue eyes.
+
+	 Therefore $\mathbb{P}(\text{first child has blue eyes is})
+	 = \frac{2}{3} \cdot \frac{1}{2} + \frac{1}{3} \cdot 0 = \frac{1}{3}$
+  \item W-Bb: William has Bb genotype
+
+	 W-BB: William has BB genotype
+
+	 CBrown: William's first child is brown
+
+	 \begin{eqnarray*}
+	   \mathbb{P}(W-Bb|CBrown)
+	 	&=& \frac{\mathbb{P}(CBrown \cap W-Bb)}{\mathbb{P}(CBrown)} \\
+	 	&=& \frac{\mathbb{P}(CBrown|W-Bb)\mathbb{P}(W-Bb)}
+			{\mathbb{P}(CBrown|W-Bb)\mathbb{P}(W-Bb)
+			+\mathbb{P}(CBrown|W-BB))\mathbb{P}(W-BB)} \\
+	 	&=& \frac{\frac{1}{2} \cdot \frac{2}{3}} 
+			{\frac{1}{2}\cdot \frac{2}{3}+ 1\cdot\frac{1}{3}} \\
+		&=& \frac{1}{2}\\
+	 \end{eqnarray*}
+
+	 $\mathbb{P}(SCBrown) = \mathbb{P}(SCBrown|W-Bb)+\mathbb{P}(SCBrown|W-BB)
+				= \frac{1}{2} \cdot \frac{1}{2} + 1\frac{1}{2}
+				= \frac{3}{4}$
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+% ---------------------------------------- END ---------------------------------------- %

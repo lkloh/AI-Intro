@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {1}Lecture: July 16, 2013}{2}
+\contentsline {subsection}{\numberline {1.1}Your website}{2}
+\contentsline {subsection}{\numberline {1.2}What is Artificial Intelligence?}{4}
+\contentsline {section}{\numberline {2}Lecture: July 19, 2013}{8}
+\contentsline {subsection}{\numberline {2.1}Question}{8}
+\contentsline {subsection}{\numberline {2.2}Data Structures}{8}
+\contentsline {section}{\numberline {3}Lecture: July 22, 2013}{10}
+\contentsline {subsection}{\numberline {3.1}What is considered AI?}{10}
+\contentsline {subsection}{\numberline {3.2}Abstract Data Structures}{10}

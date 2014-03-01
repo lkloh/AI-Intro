@@ -1,0 +1,51 @@
+
+\section{Lecture: July 19, 2013}
+
+\subsection{Question}
+
+You have two eggs and a 100 story building! You are told to find the highest floor that you can safely drop the eggs from without them breaking. These eggs could be pretty strong, so it is possible that they will not break even after being dropped from the very highest floor. Come up with a strategy to minimize the number of times you need to drop the eggs to discover the desired floor. One strategy is to drop an egg from the first floor, second floor, third floor, and so on until that egg breaks. This could require up to 100 egg drops though! A better strategy would be to start by dropping an egg from the 51th floor. If that egg breaks, then switching to our old strategy will take at most 50 drops. If the egg doesn’t break, then we can keep working our way up the floors. This strategy guarantees at most 50 drops. How much better can you do?
+
+\underline{Solution}
+
+\begin{itemize}
+  \item $N=14$
+  \item Go up by $N$ stories in increments until the egg drops
+  \item If we drop between $Ny$ and $N(y+1)$ floors
+        \begin{itemize}
+          \item Count up with other egg from $Ny+1, Ny+2,\ldots, N(y+1)-1$
+	   \item See where the other egg breaks
+        \end{itemize}
+\end{itemize}
+
+\subsection{Data Structures}
+
+Types
+\begin{itemize}
+  \item Arrays
+  \item Lists
+  \item Stacks
+  \item Queues
+  \item Maps
+  \item Sets
+\end{itemize}
+
+How Hashing works
+\begin{itemize}
+  \item Worst case: everything hashes to the same bucket (complete linked list)
+  \item Hash the value of the thing stored to a bucket 
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
